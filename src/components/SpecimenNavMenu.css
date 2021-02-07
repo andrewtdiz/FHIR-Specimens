@@ -1,0 +1,3 @@
+.ml-menu-item {
+    @apply ml-8 hidden lg:inline-block;
+}

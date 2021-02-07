@@ -1,25 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useReducer, useEffect } from 'react';
 import './App.css';
+import { SPECIMEN_REDUCER_INITIAL_VALUE } from './constants/SpecimenDisplay';
+import { specimenReducer, specimenReducerActions } from './specimenReducer';
+import fetchSpecimens from './fetchSpecimens';
+import SpecimenContext from './specimenContext';
+import SpecimenDisplay from './components/SpecimenDisplay';
+import Navbar from './components/Navbar';
+import SpecimenNavMenu from './components/SpecimenNavMenu';
+
+const { setSpecimenData, setIsFetching } = specimenReducerActions;
 
 function App() {
+  const [{ limit, page, specimenData, isFetching }, dispatch] = useReducer(specimenReducer, SPECIMEN_REDUCER_INITIAL_VALUE);
+  
+  useEffect(() => {
+    const getSpecimens = async () => {
+      dispatch({type: setIsFetching, payload: {isFetching: true}});
+      const fetchedSpecimenData = await fetchSpecimens(limit,limit*page);
+      dispatch({type: setIsFetching, payload: {isFetching: false}});
+      dispatch(
+        { type: setSpecimenData, 
+          payload: { 
+            specimenData: fetchedSpecimenData
+          }
+        }
+      );
+    }
+    getSpecimens()
+  }, [limit, page])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <SpecimenContext.Provider value={{limit, page, specimenData, isFetching, dispatch}}>
+      <div>
+        <Navbar />
+        <SpecimenNavMenu />
+        <SpecimenDisplay />
+      </div>
+    </SpecimenContext.Provider>
   );
 }
 
