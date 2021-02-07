@@ -1,4 +1,4 @@
-import {MAX_PAGE} from './constants/SpecimenDisplay';
+import {MAX_PAGE} from './constants/specimen';
 
 const specimenReducerActions = {
     setLimit: 'SET_LIMIT',
@@ -9,8 +9,8 @@ const specimenReducerActions = {
 }
   
 const specimenReducer = (state:any, {type, payload}:any) => {
-  if(state.isFetching && type!==specimenReducerActions.setIsFetching) return {...state};
-
+  if(state.isFetching && payload.isFetching) return {...state};
+  
   switch(type) {
     case specimenReducerActions.setLimit:
       return {...state, limit: payload.limit, page: 0, specimenData: [...Array(payload.limit)]};

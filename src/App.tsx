@@ -1,8 +1,8 @@
 import React, { useReducer, useEffect } from 'react';
 import './App.css';
-import { SPECIMEN_REDUCER_INITIAL_VALUE } from './constants/SpecimenDisplay';
+import { SPECIMEN_REDUCER_INITIAL_STATE } from './constants/specimen';
 import { specimenReducer, specimenReducerActions } from './specimenReducer';
-import fetchSpecimens from './fetchSpecimens';
+import fetchSpecimens from './queries/fetchSpecimens';
 import SpecimenContext from './specimenContext';
 import SpecimenDisplay from './components/SpecimenDisplay';
 import Navbar from './components/Navbar';
@@ -11,7 +11,7 @@ import SpecimenNavMenu from './components/SpecimenNavMenu';
 const { setSpecimenData, setIsFetching } = specimenReducerActions;
 
 function App() {
-  const [{ limit, page, specimenData, isFetching }, dispatch] = useReducer(specimenReducer, SPECIMEN_REDUCER_INITIAL_VALUE);
+  const [{ limit, page, specimenData, isFetching }, dispatch] = useReducer(specimenReducer, SPECIMEN_REDUCER_INITIAL_STATE);
   
   useEffect(() => {
     const getSpecimens = async () => {

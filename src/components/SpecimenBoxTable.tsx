@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function SpecimenBoxTable({label, dataObj}:any) {
+
     return (
         <div className="w-1/2 px-3">
             <p>{label}</p>
@@ -14,13 +15,11 @@ export default function SpecimenBoxTable({label, dataObj}:any) {
                         {Object.keys(dataObj).map(key => 
                             <tr key={key}>
                                 <td>{key}</td>
-                                <td>{dataObj[key]}</td>
+                                <td>{dataObj[key] || "N/A"}</td>
                             </tr>    
                         )}
                     </tbody>
-                </table>
-            }
-            
+                </table>}
         </div>
     )
 }

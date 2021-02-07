@@ -28,6 +28,14 @@ Testing:
 - [ ] Unit tests should be implemented to test React components.
 - [ ] Unit tests should test React component state changes.
 
+# Approach and Design
+
+As with any front-end application that must interface with an API, one of the most important features for code quality, maintainability, and testability is the separation of synchronous processes from asynchronous processes. With that in mind, the controller for this app is based on a carefully architectured dance between `specimenReducer`, `specimenContext`, and the `useEffect` hook, where the logic flows as follows:
+
+### specimenReducer
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

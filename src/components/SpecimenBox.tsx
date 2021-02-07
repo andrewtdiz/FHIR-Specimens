@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import SpecimenBoxTable from './SpecimenBoxTable';
-import { specimenReducerActions } from '../specimenReducer';
 import SpecimenContext from '../specimenContext';
-import fetchPatient from '../fetchPatient';
+import { specimenReducerActions } from '../specimenReducer';
+import fetchPatient from '../queries/fetchPatient';
 
 const { updateSpecimenPatient, setIsFetching } = specimenReducerActions;
 

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { LIMIT_OPTIONS } from '../constants/SpecimenDisplay';
+import { LIMIT_OPTIONS } from '../constants/specimen';
 import './SpecimenNavMenu.css';
 import SpecimenContext from '../specimenContext';
 import { specimenReducerActions } from '../specimenReducer';
