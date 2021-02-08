@@ -78,6 +78,22 @@ The SpecimenContext is what passes the `specimenReducer` values and `dispatch` m
 
 Changes to the `limit` and `page` are detected with a `useEffect` in the `App` component. This triggers a new `fetch` command to update the value of the specimenData.
 
+## Fetching data
+
+Data from the `http//hapi.fhir.org/BaseR4` is requested via `fetch`, a native Javascript HTTP Requests.
+
+### fetchSpecimen
+
+Fetching data is done with a `limit` and an `offset` variable that handles pagination.
+
+Specimens are not guarenteed to have a `Specimen.type` nor a `Specimen.collection.collectionDateTime`. Therefore those values may be set to undefined if they were not returned from the `fetch` query. 
+
+### fetchPatient
+
+Many of the `Patient`s from the `hapi.fhir` database have been deleted as of 10/11/2020. Therefore a string query has been added to the `fetch` API URL in order to account for retreiving the last version of the `Patient` available in the API. This is accounted for with the query: 
+
+`http://hapi.fhir.org/baseR4/Patient/${id}/_history?_pretty=true`
+
 ## Unit tests
 
 There are two sets of unit tests:
