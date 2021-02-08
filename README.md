@@ -9,7 +9,7 @@ Deliverables:
 - [x] Code that implements a web app.
 - [x] A `Dockerfile` for building a containerized web server.
 - [x] Serves the web app on localhost (http://127.0.0.8080).
-- [ ] A `README.md` file in Markdown format describing overall approach and design considerations.
+- [x] A `README.md` file in Markdown format describing overall approach and design considerations.
 - [x] A section of the `README.md` file with instructions for installation, deployment, and testing of the app. 
 
 Functional requirements:
@@ -49,11 +49,17 @@ Consists of a `birthDate`, `gender`, and `loading` value, as those are the relev
 ### SpecimenReducerState 
 
 Consists of: 
+
 `limit`: The limit applied to the API query for unique specimen values.
+
 `page`: The page number the user is viewing, relevant for `offset` calculation
+
 `specimenData`: An array of specimens pulled from the API.
+
 `patientHash`: A hash map of patient id values for storing unique patient IDs 
+
 `specimenFilterList`: An array of functions filter API search results displayed to the user. 
+
 `isFetching`: a boolean value for whether the API is in the process of fetching. Prevents the user from sending multiple API calls at once. 
 
 ## Managing State
@@ -71,6 +77,14 @@ The SpecimenContext is what passes the `specimenReducer` values and `dispatch` m
 ### useEffect
 
 Changes to the `limit` and `page` are detected with a `useEffect` in the `App` component. This triggers a new `fetch` command to update the value of the specimenData.
+
+## Unit tests
+
+There are two sets of unit tests:
+
+`SpecimenBox.test.tsx` and `SpecimenDisplay.test.tsx` are made to test the react component renders information displays its state properly.
+
+Tests within `SpecimenReducer` ensure that the `specimenReducer` hook is functioning properly in managing the app's state. With time permitting, I would look to add future tests that ensure other state variables within the `specimenReducer` are functioning properly. 
 
 # Deployment and Testing
 
