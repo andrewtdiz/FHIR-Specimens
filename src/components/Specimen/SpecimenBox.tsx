@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import SpecimenBoxTable from './SpecimenBoxTable';
-import SpecimenContext from '../specimenContext';
-import { specimenReducerActions } from '../specimenReducer';
-import fetchPatient from '../queries/fetchPatient';
+import SpecimenContext from '../../specimenContext';
+import { specimenReducerActions } from '../../specimenReducer';
+import fetchPatient from '../../api/fetchPatient';
 
-const { updateSpecimenPatient, setIsFetching } = specimenReducerActions;
+const { UPDATE_SPECIMEN_PATIENT, SET_IS_FETCHING } = specimenReducerActions;
 
 export default function SpecimenBox({specimen}:any) {
     const { dispatch } = useContext(SpecimenContext);
@@ -13,17 +13,17 @@ export default function SpecimenBox({specimen}:any) {
         if(specimen.patient) return;
         let patient = null;
         dispatch({
-            type: updateSpecimenPatient, 
+            type: UPDATE_SPECIMEN_PATIENT, 
             payload: {
                 patient: {loading: true},
                 id: specimen.id
             }
-        })
-        dispatch({type: setIsFetching, payload: {isFetching: true}});
+        });
+        dispatch({type: SET_IS_FETCHING, payload: {isFetching: true}});
         if(specimen.patientID) patient = await fetchPatient(specimen.patientID);
-        dispatch({type: setIsFetching, payload: {isFetching: false}});
+        dispatch({type: SET_IS_FETCHING, payload: {isFetching: false}});
         dispatch({
-            type: updateSpecimenPatient, 
+            type: UPDATE_SPECIMEN_PATIENT, 
             payload: {
                 patient: patient,
                 id: specimen.id
@@ -48,7 +48,7 @@ export default function SpecimenBox({specimen}:any) {
                     <div className="flex mt-4">
                             {specimen.type 
                             ?   <SpecimenBoxTable label="Specimen.type" dataObj={specimen.type} />
-                            :   <div className="w-1/2 flex flex-col justify-center items-center">
+                            :   <div className="flex-1 flex flex-col justify-center items-center">
 
                                 </div>
                             }

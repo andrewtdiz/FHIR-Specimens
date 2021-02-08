@@ -1,5 +1,7 @@
 import FETCH_HEADER from '../constants/fetchHeader';
 
+// Make an interface for patient
+// Break this and see how it is handled
 const fetchPatient = async (id:string) => {
   try {
     const res = await fetch(
@@ -13,10 +15,13 @@ const fetchPatient = async (id:string) => {
           birthDate,
           gender
         } 
-    } = entry.slice(-1)[0];
-    return {birthDate, gender};
-  } catch(err) {
-    return { message: "Invalid patient" }
+    } = entry[entry.length-1];
+    return {
+      birthDate,
+      gender
+    };
+  } catch {
+    throw new Error();
   }
 }
 

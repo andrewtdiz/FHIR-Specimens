@@ -1,6 +1,6 @@
 import FETCH_HEADER from '../constants/fetchHeader';
 
-const fetchSpecimens = async (count=20, offset=0) => {
+const fetchSpecimens = async (count=1, offset=0) => {
   try {
     const res = await fetch(
       `http://hapi.fhir.org/baseR4/Specimen?_count=${count}&_offset=${offset}`, 
@@ -17,11 +17,11 @@ const fetchSpecimens = async (count=20, offset=0) => {
           } 
       } = specimen;
       return {
-          id: id,
-          type: type?.coding[0],
-          collectedDateTime: collection?.collectedDateTime,
-          patientID: subject?.reference.split('/')[1]
-      }
+        id,
+        type: type?.coding[0],
+        collectedDateTime: collection?.collectedDateTime,
+        patientID: subject?.reference.split('/')[1]
+      };
     })
   } catch(err) {
     throw new Error(err);

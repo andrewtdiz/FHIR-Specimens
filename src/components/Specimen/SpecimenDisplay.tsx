@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import SpecimenBox from './SpecimenBox';
-import SpecimenContext from '../specimenContext';
+import SpecimenContext from '../../specimenContext';
 
 export default function SpecimenDisplay() {
     const { specimenData } = useContext(SpecimenContext);
