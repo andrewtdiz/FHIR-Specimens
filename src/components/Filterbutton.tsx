@@ -27,9 +27,14 @@ export default function Filterbutton() {
         })
     }
 
+    const toggleOpen = () => {
+        console.log('here i am');
+        setIsOpen(prev => !prev);
+    };
+
     return (
         <div className="relative">
-            <button onClick={() => setIsOpen(isOpen => !isOpen)} className="button-outline ml-menu-item">Filter options</button>
+            <button onClick={toggleOpen} className="button-outline ml-menu-item">Filter options</button>
             <div className={`modal-dropdown top-100 right-0 transform ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-4 pointer-events-none"}`}>
                 <p className="font-light mb-4 text-gray-600 text-xs">FILTER BY</p>
                 {Object.values(specimenFilters).map(value => 

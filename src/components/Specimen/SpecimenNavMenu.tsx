@@ -16,8 +16,7 @@ export default function SpecimenMenu() {
             <div className="platform-container flex items-center justify-between text-sm">
                 <div className="flex items-center">
                     <p className="text-gray-600">
-                        {specimenData[0]===undefined ? 'Loading' : filterSpecimenData(specimenData, specimenFilterList).length}
-                        results
+                        {specimenData[0]===undefined ? 'Loading ' : filterSpecimenData(specimenData, specimenFilterList).length} results
                     </p>
                     <button 
                         onClick={() => dispatch({type: SET_PAGE, payload: {page: page-1}})}
