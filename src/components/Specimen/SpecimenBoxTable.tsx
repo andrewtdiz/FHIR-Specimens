@@ -1,7 +1,13 @@
 import React from 'react'
+import SpecimenType from '../../interfaces/SpecimenType';
+import Patient from '../../interfaces/Patient';
 
-export default function SpecimenBoxTable({label, dataObj}:any) {
+interface SpecimenBoxTableProps {
+    label: string,
+    dataObj: SpecimenType | Patient
+}
 
+export default function SpecimenBoxTable({label, dataObj}:SpecimenBoxTableProps) {
     return (
         <div className="w-1/2 px-3">
             <p>{label}</p>
@@ -12,10 +18,10 @@ export default function SpecimenBoxTable({label, dataObj}:any) {
                 </>
             :   <table>
                     <tbody>
-                        {Object.keys(dataObj).map(key => 
+                        {Object.entries(dataObj).map(([key, value]) => 
                             <tr key={key}>
                                 <td>{key}</td>
-                                <td>{dataObj[key] || "N/A"}</td>
+                                <td>{value || "N/A"}</td>
                             </tr>    
                         )}
                     </tbody>

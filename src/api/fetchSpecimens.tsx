@@ -1,4 +1,5 @@
 import FETCH_HEADER from '../constants/fetchHeader';
+import Specimen from '../interfaces/Specimen';
 
 const fetchSpecimens = async (count=1, offset=0) => {
   try {
@@ -16,13 +17,14 @@ const fetchSpecimens = async (count=1, offset=0) => {
               subject
           } 
       } = specimen;
+      if(subject===undefined || subject.reference===undefined) return undefined
       return {
         id,
         type: type?.coding[0],
         collectedDateTime: collection?.collectedDateTime,
-        patientID: subject?.reference.split('/')[1]
+        patientID: subject?.reference?.split('/')[1]
       };
-    })
+    }).filter((specimen:Specimen | undefined)=> specimen!==undefined);
   } catch(err) {
     throw new Error(err);
   }

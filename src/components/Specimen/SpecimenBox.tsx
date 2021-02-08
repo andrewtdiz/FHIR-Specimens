@@ -3,36 +3,46 @@ import SpecimenBoxTable from './SpecimenBoxTable';
 import SpecimenContext from '../../specimenContext';
 import { specimenReducerActions } from '../../specimenReducer';
 import fetchPatient from '../../api/fetchPatient';
+import Specimen from '../../interfaces/Specimen';
+import Patient from '../../interfaces/Patient';
+import PatientHash from '../../interfaces/PatientHash';
 
-const { UPDATE_SPECIMEN_PATIENT, SET_IS_FETCHING } = specimenReducerActions;
+const { ADD_SPECIMEN_PATIENT, SET_IS_FETCHING } = specimenReducerActions;
 
-export default function SpecimenBox({specimen}:any) {
-    const { dispatch } = useContext(SpecimenContext);
+interface SpecimenBoxProps {
+    specimen:Specimen,
+    testPatientHash: PatientHash | null
+}
+
+export default function SpecimenBox({specimen, testPatientHash}:SpecimenBoxProps) {
+    const { patientHash, dispatch } = useContext(SpecimenContext);
+    const patient:Patient = process.env.NODE_ENV==='test' ? (testPatientHash && testPatientHash[specimen.id]) : (specimen ? patientHash[specimen.id] : undefined);
 
     const getPatient = async () => {
-        if(specimen.patient) return;
-        let patient = null;
+        // Functionality
+        if(patient) return;
+        let patientFetched = null;
         dispatch({
-            type: UPDATE_SPECIMEN_PATIENT, 
+            type: ADD_SPECIMEN_PATIENT, 
             payload: {
                 patient: {loading: true},
                 id: specimen.id
             }
         });
         dispatch({type: SET_IS_FETCHING, payload: {isFetching: true}});
-        if(specimen.patientID) patient = await fetchPatient(specimen.patientID);
+        if(specimen.patientID) patientFetched = await fetchPatient(specimen.patientID);
         dispatch({type: SET_IS_FETCHING, payload: {isFetching: false}});
         dispatch({
-            type: UPDATE_SPECIMEN_PATIENT, 
+            type: ADD_SPECIMEN_PATIENT, 
             payload: {
-                patient: patient,
+                patient: patientFetched,
                 id: specimen.id
             }
         })
-    }
+    };
 
     return (
-        <div className={"specimen-box " + ((specimen && specimen.patient?.birthDate) ? "specimen-box-clicked" : "specimen-box-not-clicked")}>
+        <div className={"specimen-box " + ((patient) ? "specimen-box-clicked" : "specimen-box-not-clicked")}>
             {specimen 
             ?  <div onClick={getPatient}>
                     <div className="flex items-start w-full justify-between px-3">
@@ -52,8 +62,8 @@ export default function SpecimenBox({specimen}:any) {
 
                                 </div>
                             }
-                            {specimen.patient 
-                            ?   <SpecimenBoxTable label="Patient" dataObj={specimen.patient} />
+                            {patient 
+                            ?   <SpecimenBoxTable label="Patient" dataObj={patient} />
                             :   <div className="flex-1 flex items-start justify-start px-3">
                                     <p className='text-xs text-gray-500'>Click to load patient info...</p>
                                 </div>
