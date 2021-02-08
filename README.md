@@ -1,5 +1,13 @@
 # FHIR-Specimens Front-end Exercise
 
+## Getting Started
+
+To start the project, from the root of the repo run:
+
+```bash
+docker-compose up
+```
+
 ## Overview
 
 The objective of this web app is to develop a web application that queries a laboratory information system (LIS) for information abut accessioned specimens, retrieves the information in the form of HL7 FAST Healthcare Interoperability Resources and renders a representation of these resources as a dynamic web page for review by pathologists. 
