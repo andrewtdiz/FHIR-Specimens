@@ -1,4 +1,9 @@
-# FHIR-Specimens Front-end Exercise
+# Harvard Research Lab Take-Home:
+## FHIR-Specimens Front-end Exercise
+
+The following is a user guide for a Take-Home coding assignment made for a Research Lab SWE position at Massachusets General Hospital. 
+
+This code and its documentation represent the most recent production-grade software made by Andrew DiZenzo since joining OpenLoop in 2021. 
 
 ## Getting Started
 
